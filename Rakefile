@@ -19,3 +19,9 @@ desc "Scrape a hashtag"
 task :cron => ["db:load_config"] do
   puts "TODO: IMPLEMENT."
 end
+
+desc "Generate random string."
+task :secret do
+  require 'securerandom'
+  puts SecureRandom.hex(128).split('').sample(64).join('')
+end
