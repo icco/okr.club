@@ -4,6 +4,7 @@ ruby "2.2.2"
 
 # Project requirements
 gem "activerecord", :require => "active_record"
+gem "bcrypt"
 gem "bundler"
 gem "erubis", "~> 2.7.0"
 gem "oj"
@@ -13,7 +14,9 @@ gem "rack-protection", :require => "rack/protection"
 gem "rake"
 gem "sinatra"
 gem "sinatra-activerecord", :require => "sinatra/activerecord"
+gem "sinatra-flash"
 gem "thin"
+gem "warden"
 
 # For dev
 group :development do

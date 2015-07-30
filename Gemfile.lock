@@ -15,6 +15,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.2)
+    bcrypt (3.1.10)
     builder (3.2.2)
     daemons (1.2.3)
     erubis (2.7.0)
@@ -48,6 +49,8 @@ GEM
     sinatra-activerecord (2.0.6)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -56,12 +59,15 @@ GEM
     tilt (2.0.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    warden (1.2.3)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activerecord
+  bcrypt
   bundler
   erubis (~> 2.7.0)
   oj
@@ -72,7 +78,9 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-activerecord
+  sinatra-flash
   thin
+  warden
 
 BUNDLED WITH
    1.10.5
