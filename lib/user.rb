@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :objectives
 
   def self.authenticate(name, password)
-    user = self.first(name: name)
+    user = self.where(name: name).first
     user if user && user.password == password
   end
 

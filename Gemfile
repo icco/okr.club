@@ -14,7 +14,7 @@ gem "rack-protection", :require => "rack/protection"
 gem "rake"
 gem "sinatra"
 gem "sinatra-activerecord", :require => "sinatra/activerecord"
-gem "sinatra-flash"
+gem "rack-flash3", :require => "rack-flash"
 gem "thin"
 gem "warden"
 
