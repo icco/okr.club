@@ -12,7 +12,7 @@ gem "omniauth-twitter" # https://github.com/arunagw/omniauth-twitter
 gem "pg"
 gem "rack-protection", :require => "rack/protection"
 gem "rake"
-gem "sinatra"
+gem "sinatra", :require => "sinatra/base"
 gem "sinatra-activerecord", :require => "sinatra/activerecord"
 gem "rack-flash3", :require => "rack-flash"
 gem "thin"
