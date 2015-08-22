@@ -100,6 +100,16 @@ class OKRClub < Sinatra::Base
     redirect "/auth/signup"
   end
 
+  get "/auth/signup" do
+    erb :signup
+  end
+
+  post "/auth/signup" do
+    # TODO: create user, verify input and redirect to log in.
+
+    flash[:success] = env["warden"].message
+  end
+
   get "/auth/login" do
     erb :login
   end
@@ -108,8 +118,6 @@ class OKRClub < Sinatra::Base
     env["warden"].authenticate!
 
     flash[:success] = env["warden"].message
-    p env["warden"]
-    p session
 
     if session[:return_to].nil?
       redirect "/home"
