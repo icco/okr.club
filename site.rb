@@ -32,6 +32,10 @@ class OKRClub < Sinatra::Base
     config.failure_app = self
   end
 
+  def current_user
+    User.find session["warden.user.default.key"]
+  end
+
   configure do
     # Configure Database
     RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
@@ -73,9 +77,6 @@ class OKRClub < Sinatra::Base
       def authenticate!
         # find for user
         user = User.where(name: params["user"]["username"]).first
-        p user
-        p params
-        p user.authenticate(params["user"]["password"])
         if user.nil?
           fail!("Invalid username, does not exists!")
         elsif user.authenticate(params["user"]["password"])
@@ -93,8 +94,7 @@ class OKRClub < Sinatra::Base
   end
 
   get "/home" do
-    p env["warden"]
-    p session.to_a
+    @user = current_user
 
     erb :home
   end

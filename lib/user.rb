@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   # for future use
-  def forgot_password
+  def self.forgot_password
     @user = User.find_by_email(params[:email])
     random_password = Array.new(10).map { (65 + rand(58)).chr }.join
     @user.password = random_password
