@@ -5,15 +5,32 @@
 
     <link rel="stylesheet" href="/css/tachyons.3.0.0.min.css" />
   </head>
-  <body>
-    <% if flash.has?(:error) %>
-      <h3 class="error"><%= flash[:error] %></h3>
-    <% end %>
+  <body class="pal mw7">
+    <div class="mbl">
+      <div class="small fr book">
+        <% if @user %>
+          <a href="/logout">Logout</a>
+        <% else %>
+          <a href="/login">Login</a> <br /> <a href="/signup">Signup</a>
+        <% end %>
+      </div>
 
-    <% if flash.has?(:success) %>
-      <h3 class="success"><%= flash[:success] %></h3>
-    <% end %>
+      <h1 class="mvn">OKR.club</h1>
+      <h2 class="mvs ttu book small">Objectify yourself.</h2>
+    </div>
 
-    <%= yield %>
+    <div id="flash">
+      <% if flash.has?(:error) %>
+        <h4 class="pas mvs error book bg-light-red"><%= flash[:error] %></h4>
+      <% end %>
+
+      <% if flash.has?(:success) %>
+        <h4 class="pas mvs success book bg-light-green"><%= flash[:success] %></h4>
+      <% end %>
+    </div>
+
+    <div class="content">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -145,10 +145,7 @@ class OKRClub < Sinatra::Base
   post "/auth/login" do
     env["warden"].authenticate!
 
-    u = User.where(name: params["user"]["username"]).first
-    session[:uid] = u.id
-
-    flash[:success] = env["warden"].message
+    flash[:success] = "You're back!"
 
     if session[:return_to].nil?
       redirect "/home"
