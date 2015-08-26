@@ -7,6 +7,9 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
 class OKRClub < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
+  # Logging
+  $logger = Logger.new(STDOUT)
+
   # Sessions
   secret = ENV["SESSION_SECRET"] || "secret"
   $logger.warn "Session secret is not secure!" if secret.eql? "secret"
@@ -30,11 +33,6 @@ class OKRClub < Sinatra::Base
   end
 
   configure do
-
-    # Logging
-    $logger = Logger.new(STDOUT)
-
-
     # Configure Database
     RACK_ENV = (ENV["RACK_ENV"] || :development).to_sym
     connections = {
@@ -75,9 +73,11 @@ class OKRClub < Sinatra::Base
       def authenticate!
         # find for user
         user = User.where(name: params["user"]["username"]).first
+        p user
+        p params
+        p user.authenticate(params["user"]["password"])
         if user.nil?
           fail!("Invalid username, does not exists!")
-          flash[:error] = ""
         elsif user.authenticate(params["user"]["password"])
           flash[:success] = "Logged in"
           success!(user)
@@ -92,8 +92,19 @@ class OKRClub < Sinatra::Base
     erb :index
   end
 
+  get "/home" do
+    p env["warden"]
+    p session.to_a
+
+    erb :home
+  end
+
   get "/login" do
     redirect "/auth/login"
+  end
+
+  get "/logout" do
+    redirect "/auth/logout"
   end
 
   get "/signup" do
@@ -105,9 +116,26 @@ class OKRClub < Sinatra::Base
   end
 
   post "/auth/signup" do
-    # TODO: create user, verify input and redirect to log in.
+    inc = params["user"]
 
-    flash[:success] = env["warden"].message
+    message = "Your passwords don't match." if inc["password"] != inc["verify_password"]
+    message = "This username is already taken." if !User.where(name: inc["username"]).first.nil?
+
+    if message
+      flash[:error] = message
+      redirect "/auth/signup"
+      return
+    end
+
+    u = User.new
+    u.password = inc["password"]
+    u.name = inc["username"]
+    u.save
+
+    flash[:success] = "User created. Welcome!"
+    session[:uid] = u.id
+
+    redirect "/home"
   end
 
   get "/auth/login" do
@@ -116,6 +144,9 @@ class OKRClub < Sinatra::Base
 
   post "/auth/login" do
     env["warden"].authenticate!
+
+    u = User.where(name: params["user"]["username"]).first
+    session[:uid] = u.id
 
     flash[:success] = env["warden"].message
 

@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
     user if user && user.password == password
   end
 
+  def authenticate(user_password)
+    self.password == user_password
+  end
+
   def password
     @password ||= Password.new(password_hash)
   end
