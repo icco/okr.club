@@ -89,6 +89,30 @@ class OKRClub < Sinatra::Base
     end
   end
 
+  before do
+    session[:csrf] ||= SecureRandom.hex(32)
+
+    response.set_cookie 'authenticity_token', {
+      value: session[:csrf],
+      expires: Time.now + (60 * 60 * 24 * 180), # 180 days
+      path: '/',
+      httponly: true
+      # secure: true # if HTTPS then enable this
+    }
+
+    # A Rack method, that checks if we're doing anything other than GET
+    if !request.safe?
+      # check that the session is the same as the form
+      #   parameter AND the cookie value
+      if session[:csrf] == params['_csrf'] && session[:csrf] == request.cookies['authenticity_token']
+        # everything is good.
+      else
+        flash[:error] = 'CSRF failed'
+        halt 403, 'CSRF failed'
+      end
+    end
+  end
+
   get "/" do
     erb :index
   end
