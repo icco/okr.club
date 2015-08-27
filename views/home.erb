@@ -2,4 +2,5 @@ Welcome home, <%= @user.name %>.
 
 <form action="/objectives" method="post">
   <input type="text" name="new_objective" />
+  <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
 </form>

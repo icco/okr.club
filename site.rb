@@ -33,7 +33,11 @@ class OKRClub < Sinatra::Base
   end
 
   def current_user
-    User.find session["warden.user.default.key"]
+    User.find(user_id)
+  end
+
+  def user_id
+    session["warden.user.default.key"]
   end
 
   configure do
@@ -114,13 +118,21 @@ class OKRClub < Sinatra::Base
   end
 
   get "/" do
-    erb :index
+    if user_id && current_user
+      redirect "/home"
+    else
+      erb :index
+    end
   end
 
   get "/home" do
-    @user = current_user
+    if user_id && current_user
+      @user = current_user
 
-    erb :home
+      erb :home
+    else
+      redirect "/"
+    end
   end
 
   get "/login" do
@@ -156,10 +168,9 @@ class OKRClub < Sinatra::Base
     u.name = inc["username"]
     u.save
 
-    flash[:success] = "User created. Welcome!"
-    session[:uid] = u.id
+    flash[:success] = "User created. Please Log in."
 
-    redirect "/home"
+    redirect "/"
   end
 
   get "/auth/login" do

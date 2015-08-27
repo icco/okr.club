@@ -1,6 +1,11 @@
-<form action="/auth/signup" method="post">
-  <p>Username: <input type="text" name="user[username]" /></p>
-  <p>Password: <input type="password" name="user[password]" /></p>
-  <p>Verify Password: <input type="password" name="user[verify_password]" /></p>
-  <input type="submit" value="Sign Up" />
-</form>
+<div class="mal">
+  <h2>Sign Up!</h2>
+
+  <form action="/auth/signup" method="post">
+    <p>Username: <input type="text" name="user[username]" /></p>
+    <p>Password: <input type="password" name="user[password]" /></p>
+    <p>Verify Password: <input type="password" name="user[verify_password]" /></p>
+    <input type="submit" value="Sign Up" />
+    <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
+  </form>
+</div>
