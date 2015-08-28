@@ -135,6 +135,34 @@ class OKRClub < Sinatra::Base
     end
   end
 
+  post "/objectives" do
+    o = Objective.new
+    o.text = params["new_objective"]
+    o.user = current_user
+    # Not sure if I want to do this.
+    o.start = Time.now
+    o.save
+
+    redirect "/"
+  end
+
+  post "/requirements" do
+    @user = current_user
+
+    o = Objective.find(params["objective_id"])
+    if o.user != @user
+      halt 403, "Can not save objective for another user."
+      return
+    end
+
+    r = Requirement.new
+    r.text = params["new_requirement"]
+    r.objective = o
+    r.save
+
+    redirect "/"
+  end
+
   get "/login" do
     redirect "/auth/login"
   end
