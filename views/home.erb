@@ -1,6 +1,6 @@
 <div>
   <form action="/objectives" method="post">
-    <input type="text" name="new_objective" />
+    <input type="text" name="new_objective" class="pas w-100" placeholder="Add an objective?" />
     <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
   </form>
 </div>
@@ -12,8 +12,9 @@
       <% o.requirements.each do |r| %>
         <li><%= r.text %></li>
       <% end %>
-      <form action="/requirements" method="post">
-        <li><input type="text" name="new_requirement" /></li>
+
+      <form action="/requirements" method="post" class="mbm">
+        <li><input type="text" name="new_requirement" class="pas w-100" placeholder="Add another requirement?" /></li>
         <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
         <input name="objective_id" value="<%= o.id %>" type="hidden" />
       </form>
