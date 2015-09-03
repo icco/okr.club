@@ -21,18 +21,25 @@
       <h2 class="mvs ttu book small">Objectify yourself.</h2>
     </div>
 
-    <div id="flash">
-      <% if flash.has?(:error) %>
-        <h4 class="pas mvs error book bg-light-red"><%= flash[:error] %></h4>
-      <% end %>
+    <% if flash.has?(:error) or flash.has?(:success) %>
+      <div id="flash">
+        <% if flash.has?(:error) %>
+          <h4 class="pas mvs error book bg-light-red"><%= flash[:error] %>
+        <% end %>
 
-      <% if flash.has?(:success) %>
-        <h4 class="pas mvs success book bg-light-green"><%= flash[:success] %></h4>
-      <% end %>
-    </div>
+        <% if flash.has?(:success) %>
+          <h4 class="pas mvs success book bg-light-green"><%= flash[:success] %>
+        <% end %>
+
+        <span class="h1 fr bold" style="cursor: pointer;" id="removeFlash">X</span>
+      </h4>
+      </div>
+    <% end %>
 
     <div class="content">
       <%= yield %>
     </div>
+
+    <script src="/js/app.js"></script>
   </body>
 </html>
