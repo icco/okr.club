@@ -7,39 +7,41 @@
 
     <meta name='csrf-token' content='<%= session[:csrf] %>'>
   </head>
-  <body class="pal mw7">
-    <div class="mbl">
-      <div class="small fr book">
-        <% if @user %>
-          <a href="/logout">Logout</a>
-        <% else %>
-          <a href="/login">Login</a> <br /> <a href="/signup">Signup</a>
-        <% end %>
+  <body class="sans-serif">
+    <div class="pal mw8">
+      <div class="mbl">
+        <div class="small fr book">
+          <% if @user %>
+            <a href="/logout">Logout</a>
+          <% else %>
+            <a href="/login">Login</a> <br /> <a href="/signup">Signup</a>
+          <% end %>
+        </div>
+
+        <h1 class="mvn">OKR.club</h1>
+        <h2 class="mvs ttu book small">Objectify yourself.</h2>
       </div>
 
-      <h1 class="mvn">OKR.club</h1>
-      <h2 class="mvs ttu book small">Objectify yourself.</h2>
-    </div>
+      <% if flash.has?(:error) or flash.has?(:success) %>
+        <div id="flash">
+          <% if flash.has?(:error) %>
+            <h4 class="pas mvs error book bg-light-red"><%= flash[:error] %>
+            <% end %>
 
-    <% if flash.has?(:error) or flash.has?(:success) %>
-      <div id="flash">
-        <% if flash.has?(:error) %>
-          <h4 class="pas mvs error book bg-light-red"><%= flash[:error] %>
+            <% if flash.has?(:success) %>
+              <h4 class="pas mvs success book bg-light-green"><%= flash[:success] %>
+              <% end %>
+
+              <span class="h1 fr bold" style="cursor: pointer;" id="removeFlash">X</span>
+            </h4>
+          </div>
         <% end %>
 
-        <% if flash.has?(:success) %>
-          <h4 class="pas mvs success book bg-light-green"><%= flash[:success] %>
-        <% end %>
-
-        <span class="h1 fr bold" style="cursor: pointer;" id="removeFlash">X</span>
-      </h4>
+        <div class="content">
+          <%= yield %>
+        </div>
       </div>
-    <% end %>
 
-    <div class="content">
-      <%= yield %>
-    </div>
-
-    <script src="/js/app.js"></script>
-  </body>
-</html>
+      <script src="/js/app.js"></script>
+    </body>
+  </html>
