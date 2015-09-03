@@ -233,6 +233,10 @@ class OKRClub < Sinatra::Base
     redirect "/"
   end
 
+  get "/about" do
+    erb :about
+  end
+
   error 400..510 do
     @code = response.status
     erb :error
