@@ -3,18 +3,6 @@
   <h2>You have 100 days to finish the following objectives.</h2>
 </div>
 
-<div class="">
-  <form action="/objectives" method="post">
-    <div class="dtc w-100">
-      <input type="text" name="new_objective" class="pas w-100" placeholder="Add an objective?" />
-    </div>
-    <div class="dtc">
-      <button class="mhs pas" type="submit">Add</button>
-    </div>
-    <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
-  </form>
-</div>
-
 <ul>
   <% @user.objectives.each do |o| %>
     <li><%= o.text %>
@@ -22,22 +10,40 @@
       <% o.requirements.each do |r| %>
         <li><%= r.text %></li>
       <% end %>
+    </ul>
 
+    <div class="mts mbl">
       <form action="/requirements" method="post" class="mbm">
-        <li>
-        <div class="di">
-          <div class="dtc w-100">
-            <input type="text" name="new_requirement" class="pas w-100" placeholder="Add another requirement?" />
-          </div>
-          <div class="dtc">
-            <button class="mhs pas" type="submit">Add</button>
-          </div>
+        <div class="dtc w-100">
+          <input type="text" name="new_requirement" class="pas w-100 input-text" placeholder="Add a requirement?" />
         </div>
-        </li>
+        <div class="dtc">
+          <button class="mhs pas" type="submit">Add</button>
+        </div>
         <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
         <input name="objective_id" value="<%= o.id %>" type="hidden" />
       </form>
-    </ul>
+    </div>
     </li>
   <% end %>
 </ul>
+
+<div class="dt">
+  <h2>Add a new Objective.</h2>
+
+  <form action="/objectives" method="post">
+    <div class="w-100">
+      <input type="text" name="new_objective" class="pas w-100 input-text" placeholder="Add an objective?" />
+    </div>
+
+    <div class="w-100">
+      <div class="dtc">
+        <input type="text" name="duedate" class="pas w-100" placeholder="Due Date?" />
+      </div>
+      <div class="dtc">
+        <button class="mhs pas" type="submit">Add</button>
+      </div>
+    </div>
+    <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
+  </form>
+</div>
