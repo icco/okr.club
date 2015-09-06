@@ -74,15 +74,15 @@ class OKRClub < Sinatra::Base
 
       # valid params for authentication
       def valid?
-        params["user"] && params["user"]["username"] && params["user"]["password"]
+        params["user"] && params["user"]["email"] && params["user"]["password"]
       end
 
       # authenticating user
       def authenticate!
         # find for user
-        user = User.where(name: params["user"]["username"]).first
+        user = User.where(email: params["user"]["email"]).first
         if user.nil?
-          fail!("Invalid username, does not exists!")
+          fail!("Invalid email, does not exists!")
         elsif user.authenticate(params["user"]["password"])
           flash[:success] = "Logged in"
           success!(user)
@@ -183,7 +183,7 @@ class OKRClub < Sinatra::Base
     inc = params["user"]
 
     message = "Your passwords don't match." if inc["password"] != inc["verify_password"]
-    message = "This username is already taken." if !User.where(name: inc["username"]).first.nil?
+    message = "This email is already taken." if !User.where(name: inc["email"]).first.nil?
 
     if message
       flash[:error] = message
@@ -193,7 +193,8 @@ class OKRClub < Sinatra::Base
 
     u = User.new
     u.password = inc["password"]
-    u.name = inc["username"]
+    u.email = inc["email"]
+    u.name = "friend"
     u.save
 
     flash[:success] = "User created. Please Log in."
@@ -207,8 +208,6 @@ class OKRClub < Sinatra::Base
 
   post "/auth/login" do
     env["warden"].authenticate!
-
-    flash[:success] = "You're back!"
 
     if session[:return_to].nil?
       redirect "/home"
