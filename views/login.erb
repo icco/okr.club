@@ -1,9 +1,9 @@
-  <h2>Log In!</h2>
+<h2>Log In!</h2>
 
-  <form action="/auth/login" method="post">
-    <p><input class="pas input-text" type="text" name="user[email]" placeholder="Email" /></p>
-    <p><input class="pas input-text" type="password" name="user[password]" placeholder="Password" /></p>
-    <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
+<form action="/auth/login" method="post">
+  <p><input class="pas input-text" type="text" name="user[email]" placeholder="Email" /></p>
+  <p><input class="pas input-text" type="password" name="user[password]" placeholder="Password" /></p>
+  <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
 
-    <button class="pas" type="submit">Log In</button>
-  </form>
+  <button class="pas" type="submit">Log In</button>
+</form>

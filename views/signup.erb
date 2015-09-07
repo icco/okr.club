@@ -1,11 +1,9 @@
-<div class="mal">
-  <h2>Sign Up!</h2>
+<h2>Sign Up!</h2>
 
-  <form action="/auth/signup" method="post">
-    <p><input type="text" name="user[email]" placeholder="Email" /></p>
-    <p><input type="password" name="user[password]" placeholder="password" /></p>
-    <p><input type="password" name="user[verify_password]" placeholder="Verify Password"/></p>
-    <input type="submit" value="Sign Up" />
-    <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
-  </form>
-</div>
+<form action="/auth/signup" method="post">
+  <p><input class="pas input-text" type="text" name="user[email]" placeholder="Email" /></p>
+  <p><input class="pas input-text" type="password" name="user[password]" placeholder="Password" /></p>
+  <p><input class="pas input-text" type="password" name="user[verify_password]" placeholder="Verify Password"/></p>
+  <button class="pas" type="submit">Sign Up</button>
+  <input name="_csrf" value="<%= session[:csrf] %>" type="hidden" />
+</form>
