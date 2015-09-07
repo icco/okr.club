@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
 
   has_many :objectives
 
+  validates :name, presence: true
+  validates :password, presence: true
+  validates :email, presence: true, uniqueness: true, email: true
+
   def self.authenticate(name, password)
     user = self.where(name: name).first
     user if user && user.password == password
