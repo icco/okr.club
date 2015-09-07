@@ -36,9 +36,18 @@
       <input type="text" name="new_objective" class="pas w-100 input-text" placeholder="Add an objective?" />
     </div>
 
-    <div class="w-100">
+    <div class="w-100 mvm">
+      <ul class="sentence">
+        Suggested due dates: 
+        <% @dates.each do |d| %>
+          <li><a class="due-date cp"><%= d.strftime "%F" %></a></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="w-100 mvm">
       <div class="dtc">
-        <input type="text" name="duedate" class="pas w-100" placeholder="Due Date?" />
+        <input type="text" name="duedate" class="pas w-100 input-text" placeholder="Due Date?" />
       </div>
       <div class="dtc">
         <button class="mhs pas" type="submit">Add</button>

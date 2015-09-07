@@ -128,6 +128,15 @@ class OKRClub < Sinatra::Base
   get "/home" do
     if user_id && current_user
       @user = current_user
+      @dates = [
+        Chronic.parse("tomorrow"),
+        Chronic.parse("sunday"),
+        Chronic.parse("next month", guess: :begin),
+        Chronic.parse("march 31st"), # EOQ1
+        Chronic.parse("june 30th"), # EOQ2
+        Chronic.parse("september 30th"), # EOQ3
+        Chronic.parse("december 31st"), # EOQ4
+      ].sort.uniq
 
       erb :home
     else
