@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, email: true
 
   def current_objectives
-    return self.objectives.where.not(end: nil).order(end: :desc)
+    return self.objectives.where.not(end: nil).order(end: :asc)
   end
 
   def self.authenticate(name, password)
