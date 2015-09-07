@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates :email, presence: true, uniqueness: true, email: true
 
+  def current_objectives
+    return self.objectives.where.not(end: nil).order(end: :desc)
+  end
+
   def self.authenticate(name, password)
     user = self.where(name: name).first
     user if user && user.password == password

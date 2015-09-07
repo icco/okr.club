@@ -1,10 +1,14 @@
 <div class="mvl mhs">
   <h1>Yo <%= @user.name.capitalize %>.</h1>
-  <h2>You have 100 days to finish the following objectives.</h2>
+  <% if @user.objectives.where.not(end: nil).order(end: :desc).first %>
+    <h2>You have <%= Time.now - @user.objectives.order(end: :desc).first.end %> days to finish the following objectives.</h2>
+  <% else %>
+    <h2>Upcomming objectives.</h2>
+  <% end %>
 </div>
 
 <ul>
-  <% @user.objectives.each do |o| %>
+  <% @user.current_objectives.each do |o| %>
     <li><%= o.text %>
     <ul>
       <% o.requirements.each do |r| %>

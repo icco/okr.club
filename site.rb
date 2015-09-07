@@ -148,8 +148,8 @@ class OKRClub < Sinatra::Base
     o = Objective.new
     o.text = params["new_objective"]
     o.user = current_user
-    # Not sure if I want to do this.
     o.start = Time.now
+    o.end = params["duedate"]
     o.save
 
     redirect "/"
