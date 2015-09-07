@@ -176,7 +176,11 @@ class OKRClub < Sinatra::Base
   end
 
   get "/auth/signup" do
-    erb :signup
+    if user_id && current_user
+      redirect "/home"
+    else
+      erb :signup
+    end
   end
 
   post "/auth/signup" do
@@ -203,7 +207,11 @@ class OKRClub < Sinatra::Base
   end
 
   get "/auth/login" do
-    erb :login
+    if user_id && current_user
+      redirect "/home"
+    else
+      erb :login
+    end
   end
 
   post "/auth/login" do
