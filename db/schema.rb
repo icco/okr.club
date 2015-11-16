@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20150801081854) do
     t.date     "start"
     t.date     "end"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float    "score"
   end
 
